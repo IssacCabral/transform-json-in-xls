@@ -1,12 +1,4 @@
-const AWS = require("aws-sdk");
-
-var credentials = new AWS.SharedIniFileCredentials({ profile: "luby-dev" });
-AWS.config.update({ region: "us-east-1" });
-AWS.config.credentials = credentials;
-
-var ddb = new AWS.DynamoDB({ apiVersion: "2012-08-10" });
-
-const TABLE_NAME = "FgtsProposals";
+const [ddb, TABLE_NAME, AWS] = require("./config");
 
 async function getProposals() {
   const proposals = [];
@@ -26,6 +18,4 @@ async function getProposals() {
   return proposals;
 }
 
-(async () => {
-  const result = await getProposals();
-})();
+module.exports = getProposals;
