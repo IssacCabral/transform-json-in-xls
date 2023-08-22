@@ -4,21 +4,7 @@ const path = require("path");
 
 class XlsxService {
   async createWorkSheet() {
-    //const jsonData = await getProposals();
-    const jsonData = [
-      {
-        name: "Matias",
-        createdAt: 123456789,
-        age: 17,
-        updatedAt: 567890123,
-      },
-      {
-        name: "Maria",
-        createdAt: 321654987,
-        age: 22,
-        updatedAt: 567890123,
-      },
-    ];
+    const jsonData = await getProposals();
     const workSheet = XLSX.utils.json_to_sheet(jsonData);
     return workSheet;
   }
