@@ -10,7 +10,7 @@ class XlsxService {
   }
 
   formatSheet(workSheet) {
-    const columnsToFormat = ["createdAt", "updatedAt"];
+    const columnsToFormat = ["createdAt", "updatedAt", "nextPayment"];
     const columnsToFormatPositions = [];
 
     var ref = XLSX.utils.decode_range(workSheet["!ref"]);
@@ -28,6 +28,8 @@ class XlsxService {
     // Iterando em cada linha das posições das colunas
     columnsToFormatPositions.forEach((column) => {
       for (var rowPosition = 1; rowPosition <= ref.e.r; ++rowPosition) {
+        if (!workSheet[XLSX.utils.encode_cell({ r: rowPosition, c: column })])
+          continue;
         workSheet[XLSX.utils.encode_cell({ r: rowPosition, c: column })].z =
           "0";
       }
