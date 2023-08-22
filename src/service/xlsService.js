@@ -6,7 +6,6 @@ class XlsxService {
   async createWorkSheet() {
     const jsonData = await getProposals();
     const workSheet = XLSX.utils.json_to_sheet(jsonData);
-    // console.log({ coluns: workSheet. });
     return workSheet;
   }
 
@@ -23,10 +22,19 @@ class XlsxService {
 
     const columns = [];
 
+    /**
+     * Vou precisar iterar pelas colunas, e buscar as posições que tiverem
+     * os campos createdAt, updatedAt
+     *
+     * Após isso, eu faço uma interação nessas colunas, para alterar célula por célula
+     * realizando a formatação correta
+     */
     // obter os nomes das colunas
-    for (var C = 0; C <= ref.e.c; ++C) {
+    for (var columnPosition = 0; columnPosition <= ref.e.c; ++columnPosition) {
       columns.push(
-        workBook.Sheets[sheetName][XLSX.utils.encode_cell({ r: 0, c: C })].v
+        workBook.Sheets[sheetName][
+          XLSX.utils.encode_cell({ r: 0, c: columnPosition })
+        ].v
       );
     }
 
