@@ -1,4 +1,3 @@
-const xlsx = require("xlsx");
 const AWS = require("aws-sdk");
 
 var credentials = new AWS.SharedIniFileCredentials({ profile: "luby-dev" });
@@ -29,21 +28,4 @@ async function getProposals() {
 
 (async () => {
   const result = await getProposals();
-  const workSheet = xlsx.utils.json_to_sheet(result);
-
-  workSheet["F2"].z = '"$"#,##0.00_);\\("$"#,##0.00\\)';
-  workSheet["F3"].z = "#,##0";
-  workSheet["F4"].z = "0.00%";
-
-  const workBook = xlsx.utils.book_new();
-
-  xlsx.utils.book_append_sheet(workBook, workSheet, "Sheet 1");
-
-  // const blob = xlsx.write(workBook, { bookType: "xls", type: "buffer" });
-
-  // const base64 = blob.toString("base64");
-
-  // const myFile = xlsx.read(base64);
-
-  xlsx.writeFile(workBook, "./arquivo.xls");
 })();
